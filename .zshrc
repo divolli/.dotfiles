@@ -3,7 +3,7 @@ ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 
 # Download zinit, if it's not there
 if [ ! -d "$ZINIT_HOME" ]; then
-    mkdir -p "$(dirname $ZINIT_HOME)"
+    mkdir -p "$(dirname "$ZINIT_HOME")"
     git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
 fi
 
@@ -50,7 +50,7 @@ git_prompt_info() {
             fi
         fi
 
-        # Return formatted git info 
+        # Return formatted git info
         echo " %F{red}git: ${git_branch} %F{yellow}${git_dirty}%F{cyan}${ahead_behind}"
     fi
 }
@@ -65,7 +65,7 @@ else
 $ ' # normal user
 fi
 
-# History file size
+# History configuration
 HISTFILE=~/.histfile
 HISTSIZE=5000
 SAVEHIST=$HISTSIZE
@@ -78,6 +78,8 @@ setopt hist_ignore_all_dups
 setopt hist_save_no_dups
 setopt hist_ignore_dups
 setopt hist_find_no_dups
+setopt hist_verify
+setopt hist_reduce_blanks
 
 # Enable vim motions
 bindkey -v
@@ -87,14 +89,14 @@ function zle-keymap-select {
         # Normal mode → Block cursor
         echo -ne '\e[1 q'
     elif [[ ${KEYMAP} == main ]] || [[ ${KEYMAP} == viins ]] || [[ ${KEYMAP} = '' ]] || [[ $1 = 'beam' ]]; then
-        # Insert mode → Underline cursor
-        echo -ne '\e[4 q'
+        # Insert mode → Beam cursor
+        echo -ne '\e[5 q'
     fi
 }
 
 function zle-line-init {
-    # Start in insert mode with underline cursor
-    echo -ne '\e[4 q'
+    # Start in insert mode with beam cursor
+    echo -ne '\e[5 q'
 }
 
 function zle-line-finish {
@@ -126,9 +128,9 @@ alias ls='ls --color=auto'
 rm() {
     if [[ "$*" == *"-r"* ]]; then
         # If -r is specified, ask for confirmation
-        echo "Recursive delete requested for: $@/"
-        echo -n "Continue?: "
-        read response
+        printf "Recursive delete requested for: %s\n" "$*"
+        printf "Continue? (y/N): "
+        read -r response
         [[ "$response" =~ ^[Yy]$ ]] && command rm "$@"
     else
         # Regular files get -i
