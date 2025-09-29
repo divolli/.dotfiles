@@ -12,6 +12,7 @@ Make sure the following packages are installed:
 - [zsh](https://www.zsh.org/) – my preferred shell
 - [tmux](https://github.com/tmux/tmux) – terminal multiplexer
 - [kitty](https://sw.kovidgoyal.net/kitty/) – GPU-based terminal emulator
+- JetBrains Nerd Font Mono
 
 ---
 
