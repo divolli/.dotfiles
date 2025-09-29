@@ -4,23 +4,25 @@ This repository contains my personal configuration files for my development envi
 
 ---
 
-## Requirements
-
-Make sure the following packages are installed:
-
-- [GNU Stow](https://www.gnu.org/software/stow/) – for managing symlinks
-- [zsh](https://www.zsh.org/) – my preferred shell
-- [tmux](https://github.com/tmux/tmux) – terminal multiplexer
-- [kitty](https://sw.kovidgoyal.net/kitty/) – GPU-based terminal emulator
-- JetBrains Nerd Font Mono
-
----
-
 ## Installation
-
-Clone this repo into your home directory:
 
 ```bash
 git clone https://github.com/divolli/.dotfiles.git ~/.dotfiles
 cd ~/.dotfiles
+```
+
+## Requirements
+
+Make sure those are installed, I'll add more packages here.
+
+```bash
+nvim tmux tpm jetbrainsnerd-font-mono-semi-bold git stow
+```
+
+## Notes
+
+- If you run into issues with tmux + tpm, try:
+
+```bash
+cd ~/.tmux/plugins/tpm/scripts && ./install_plugins.sh # helped for me
 ```
