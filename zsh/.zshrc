@@ -51,18 +51,29 @@ git_prompt_info() {
         fi
 
         # Return formatted git info
-        echo " %F{red}git: ${git_branch} %F{yellow}${git_dirty}%F{cyan}${ahead_behind}"
+        echo " %F{red} ${git_branch} %F{yellow}${git_dirty}%F{cyan}${ahead_behind}"
     fi
 }
 
-# Enhanced prompt with git information
+# Disable Python venv from modifying the prompt
+export VIRTUAL_ENV_DISABLE_PROMPT=1
+
+# Enhanced prompt
 setopt PROMPT_SUBST
+
+# Virtual environment indicator
+venv_prompt_info() {
+    if [[ -n "$VIRTUAL_ENV" ]]; then
+        echo '%F{yellow}󱔎%f '
+    fi
+}
+
 if [[ $EUID -eq 0 ]]; then
-    export PS1='%F{green}%n[root] %F{yellow}%~%f$(git_prompt_info)%F{green}
-$ ' # root user
+    export PS1='$(venv_prompt_info)%F{red}%n[root] %F{yellow}%~%f$(git_prompt_info)%F{cyan}
+ƒ ' # root user
 else
-    export PS1='%F{cyan}%n%f %F{yellow}%~%f$(git_prompt_info)%F{green}
-$ ' # normal user
+    export PS1='$(venv_prompt_info)%F{cyan}%n%f %F{yellow}%~%f$(git_prompt_info)%F{cyan}
+ƒ ' # normal user
 fi
 
 # History configuration
@@ -120,6 +131,7 @@ zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color=auto $realpath'
 
 # Shell integrations
 eval "$(fzf --zsh)"
+eval "$(zoxide init --cmd cd zsh)"
 
 #Aliases
 alias ls='ls --color=auto'
