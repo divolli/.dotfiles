@@ -67,4 +67,5 @@ cd ~/.tmux/plugins/tpm/scripts && ./install_plugins.sh # helped for me
 ```bash
 git clone https://github.com/divolli/.dotfiles.git ~/.dotfiles
 cd ~/.dotfiles
+stow $(ls -d */)
 ```
