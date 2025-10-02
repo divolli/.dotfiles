@@ -131,6 +131,7 @@ zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color=auto $realpath'
 
 # Shell integrations
 eval "$(fzf --zsh)"
+eval "$(zoxide init --cmd cd zsh)"
 
 #Aliases
 alias ls='ls --color=auto'
