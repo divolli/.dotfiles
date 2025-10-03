@@ -9,5 +9,6 @@ show_hidden = false
 show_symlink = true
 
 [preview]
-max_width = 12000
-max_height = 12000
+max_width = 20000
+max_height = 20000
+
