@@ -31,4 +31,5 @@ require("lazy").setup({
 	require("plugins.comment"),
 	require("plugins.dap"),
 	require("plugins.conform"),
+	require("plugins.yazinvim"),
 })
