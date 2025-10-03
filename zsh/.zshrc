@@ -76,6 +76,15 @@ else
 ƒ ' # normal user
 fi
 
+# yazi wrapper
+function y() {
+    local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+    yazi "$@" --cwd-file="$tmp"
+    IFS= read -r -d '' cwd <"$tmp"
+    [ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
+    rm -f -- "$tmp"
+}
+
 # History configuration
 HISTFILE=~/.histfile
 HISTSIZE=5000
@@ -91,6 +100,10 @@ setopt hist_ignore_dups
 setopt hist_find_no_dups
 setopt hist_verify
 setopt hist_reduce_blanks
+
+# set editor
+export EDITOR="nvim"
+export VISUAL="nvim"
 
 # Enable vim motions
 bindkey -v
